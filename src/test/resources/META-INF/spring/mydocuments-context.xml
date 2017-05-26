@@ -2,20 +2,28 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="
 	  http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
     http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.0.xsd
+    http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.2.xsd
     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
   
   <context:component-scan base-package="com.apress.isf.spring"/>
   
-  <!-- Active MQ -->
+<!-- Active MQ -->
   <bean id="activemqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
-          p:brokerURL="tcp://localhost:6161"/>
+          p:brokerURL="tcp://localhost:61616"/>
+ 
+  <!-- JMS Template -->
+  <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+    <constructor-arg name="connectionFactory" ref="activemqConnectionFactory"/>
+    <property name="defaultDestinationName" value="mydocumentsQueue" />
+  </bean>
   
   <!-- JMS Listener -->
   <jms:listener-container connection-factory="activemqConnectionFactory"
@@ -23,6 +31,15 @@
       <jms:listener destination="mydocumentsQueue" ref="JMSConsumer" 
                   method="onMessage"/>
   </jms:listener-container>
+  
+  <!-- RabbitMQ -->
+  <rabbit:connection-factory id="rabbitConnectionFactory" host="localhost"/>
+  <rabbit:admin connection-factory="rabbitConnectionFactory"/>
+  <rabbit:template id="rabbitTemplate" connection-factory="rabbitConnectionFactory" routing-key="mydocumentsQueue"/>
+  <rabbit:listener-container connection-factory="rabbitConnectionFactory">
+    <rabbit:listener ref="rabbitmqConsumer" queues="mydocumentsQueue"/>
+  </rabbit:listener-container>
+  <rabbit:queue name="mydocumentsQueue"/>
   
   <!-- JDBC -->
   <jdbc:embedded-database id="dataSource">
