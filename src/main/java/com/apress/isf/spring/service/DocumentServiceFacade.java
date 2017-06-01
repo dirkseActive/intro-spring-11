@@ -2,9 +2,11 @@ package com.apress.isf.spring.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.apress.isf.java.model.Document;
-import com.apress.isf.java.model.Type;
 import com.apress.isf.java.service.DocumentService;
+import com.apress.isf.spring.data.DocumentDAO;
 
 /**
  * 
@@ -14,51 +16,40 @@ import com.apress.isf.java.service.DocumentService;
  */
 
 public class DocumentServiceFacade implements DocumentService {
+	
+	@Autowired
+	DocumentDAO documentDAO;
 
 	@Override
-	public void createNewType(Type type) {
-		
+	public List<Document> getAllDocuments() {
+		return documentDAO.getAll();
 	}
 
 	@Override
-	public void updateType(Type type) {
-		
+	public Document findDocumentById(String id) {
+		return documentDAO.findById(id);
 	}
 
 	@Override
-	public void removeTypeById(String id) {
-		
+	public Document saveDocument(String id, Document document) {
+		return documentDAO.save(id, document);
 	}
 
 	@Override
-	public List<Type> getAllDefinedTypes() {
-		// TODO Auto-generated method stub
-		return null;
+	public Document removeDocumentById(String id) {
+		return documentDAO.removeById(id);
 	}
 
 	@Override
-	public Type getTypeById(String id) {
-		return null;
+	public boolean updateLocationFromDocumentId(String documentId, String location) {
+		Document document = documentDAO.findById(documentId);
+		if(null == document)
+			return false;
+		document.setLocation(location);
+		saveDocument(documentId, document);
+		return true;
 	}
 
-	@Override
-	public void createNewDocument(Document document) {
-		
-	}
-
-	@Override
-	public void removeDocumentById(String id) {
-		
-	}
-
-	@Override
-	public void updateDocument(Document document) {
-		
-	}
-
-	@Override
-	public void updateLocationFromDocumentId(String documentId, String location) {
-		
-	}
+	
 
 }
