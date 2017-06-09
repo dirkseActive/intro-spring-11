@@ -46,6 +46,7 @@ public class DocumentRepository implements DocumentDAO {
 		return document;
 	}
 
+	@SuppressWarnings("null")
 	public Document save(String id, Document document) {
 		try {
 			JdbcTemplate template = new JdbcTemplate(dataSource);

@@ -31,7 +31,7 @@ public class JMSConsumer implements MessageListener{
 		TextMessage textMessage = (TextMessage)message;
 		try{
 			     Document document = XmlUtils.fromXML(textMessage.getText(), Document.class);
-				documentDAO.save(document);
+				documentDAO.save(null, document); // documentDAO.save(String, document);
 		}catch(JMSException ex){
 			ex.printStackTrace();
 		}

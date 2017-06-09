@@ -2,12 +2,22 @@
  * dirkseActive 4/24/17 11:57 AM' with Gradle 2.14.1
  *
  */
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath (group: 'com.sahlbach.gradle', name: 'gradle-jetty-eclipse-plugin', version: '1.9.+')
+    }
+}
 
  apply plugin: 'java'
  apply plugin: 'groovy'
  apply plugin: 'eclipse'
  apply plugin: 'idea'
+ apply plugin: 'war'
  apply plugin: 'jetty'
+ apply plugin: 'jettyEclipse'
  
  group = 'com.apress.isf'
  version = '1.0'
@@ -19,7 +29,7 @@
 	 	compile 'org.aspectj:aspectjrt:1.7.4'
 	 	compile 'org.springframework:spring-context:4.0.5.RELEASE'
 		compile 'org.springframework.boot:spring-boot-starter-web:1.1.1.RELEASE'
-		compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.7.RELEASE'
+		compile group: 'org.springframework', name: 'spring-jdbc', version: '4.0.5.RELEASE'
 		compile 'org.springframework:spring-webmvc:4.0.5.RELEASE'
 		
 		compile 'org.springframework:spring-jms:4.0.5.RELEASE'
@@ -27,7 +37,7 @@
 		compile 'javax.jms:jms-api:1.1-rev-1'
 		
 		// https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream
-        compile group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.9'
+        compile group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.7'
 		
 		runtime 'org.apache.activemq:activemq-core:5.7.0'
 		runtime 'jstl:jstl:1.2'
