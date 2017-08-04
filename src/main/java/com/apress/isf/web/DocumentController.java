@@ -21,7 +21,7 @@ import com.apress.isf.java.service.DocumentService;
  */
 
 @Controller
-@RequestMapping("/documents")
+@RequestMapping("documents")
 public class DocumentController {
 	
 	@Autowired

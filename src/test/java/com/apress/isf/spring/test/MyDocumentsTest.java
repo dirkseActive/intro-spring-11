@@ -4,7 +4,6 @@ package com.apress.isf.spring.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Ignore;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,7 +59,7 @@ public class MyDocumentsTest {
 		//After the JMS message and insert, must be 5 Documents
 		assertEquals(MAX_ALL_DOCS, engine.listAll().size());
 		
-		Type documentType = new Type("Web",".ulr");
+		Type documentType = new Type("Web",".url");
 		assertEquals(MAX_WEB_DOCS, engine.findByType(documentType).size());
 	}
 	
