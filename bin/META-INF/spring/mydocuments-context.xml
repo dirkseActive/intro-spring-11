@@ -15,6 +15,24 @@
   
   <context:component-scan base-package="com.apress.isf.spring"/>
   
+  <context:property-placeholder location="email.properties"/>
+  
+  <!--  EMAIL -->
+  <bean id="email" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+  	<property name="host" value="${email.host}" />
+  	<property name="port" value="${email.port}" />
+  	<property name="username" value="${email.username}" />
+  	<property name="password" value="${email.password}" />
+  	
+  	<property name="javaMailProperties">
+  		<props>
+  			<prop key="mail.smtp.auth">true</prop>
+  			<prop key="mail.smtp.starttle.enable">true</prop>
+  		</props>
+  	</property>
+  </bean>
+  
+  
 <!-- Active MQ -->
   <bean id="activemqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
           p:brokerURL="tcp://localhost:61616"/>
