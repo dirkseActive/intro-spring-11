@@ -1,8 +1,5 @@
 package com.apress.isf.spring.test;
 
-
-
-
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
@@ -28,7 +25,6 @@ import com.apress.isf.spring.jms.JMSProducer;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:META-INF/spring/mydocuments-context.xml")
-// @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MyDocumentsTest {
 	private static final Logger log = LoggerFactory.getLogger(MyDocumentsTest.class);
 	//Based on the META-INF/data/jms.txt - only one record
