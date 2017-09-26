@@ -20,6 +20,7 @@ import com.apress.isf.java.model.Document;
 import com.apress.isf.java.model.Type;
 import com.apress.isf.java.service.DocumentService;
 
+
 @Component
 public class DocumentScheduler {
 	private static Logger log = LoggerFactory.getLogger(DocumentScheduler.class);
